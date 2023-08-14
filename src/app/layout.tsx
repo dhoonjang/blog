@@ -10,8 +10,8 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'dhoonjang nextjs template',
-  description: 'template for nextjs project',
+  title: 'dhoonjang blog',
+  description: "dhoonjang's blog",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
