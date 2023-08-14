@@ -1,9 +1,13 @@
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import { ReactNode } from 'react';
+import Providers from './providers';
 import type { Metadata } from 'next';
 import './globals.scss';
 
-const inter = Inter({ subsets: ['latin'] });
+const pretendard = localFont({
+  src: '../fonts/PretendardStdVariable.woff2',
+  variable: '--font-pretendard',
+});
 
 export const metadata: Metadata = {
   title: 'dhoonjang nextjs template',
@@ -12,8 +16,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>{children}</body>
+    <html lang="ko" className={pretendard.className}>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
