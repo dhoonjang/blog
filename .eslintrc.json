@@ -21,11 +21,11 @@
       "warn",
       {
         "groups": [
+          "type",
           "builtin",
           "external",
           "internal",
           ["sibling", "parent", "index"],
-          "type",
           "unknown"
         ],
         "alphabetize": {

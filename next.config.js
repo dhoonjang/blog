@@ -9,6 +9,9 @@ const nextConfig = {
 
     return config;
   },
+  env: {
+    NEXTAUTH_URL: 'http://localhost:3000',
+  },
 };
 
 module.exports = nextConfig;
