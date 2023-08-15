@@ -1,17 +1,25 @@
-import { getServerSession } from 'next-auth';
-import { LoginButton } from '@/components/form';
-import { authOptions } from '@/lib/auth';
-import { cn } from '@/lib/style';
+import { Card } from '@nextui-org/card';
 
-export default async function Home() {
-  const session = await getServerSession(authOptions);
-
-  console.log(session);
-
+const Home = () => {
   return (
-    <main className="container mx-auto flex min-h-screen flex-col justify-center p-24">
-      <h1 className={cn('font-medium text-large text-left')}>dhoonjang</h1>
-      <LoginButton />
-    </main>
+    <div className="grid gap-3 py-3">
+      <Card>
+        <h1 className="py-24 text-center text-4xl">
+          <span className="font-toss">📝</span> Post
+        </h1>
+      </Card>
+      <Card>
+        <h1 className="py-24 text-center text-4xl">
+          <span className="font-toss">✈️</span> Travel
+        </h1>
+      </Card>
+      <Card>
+        <h1 className="py-24 text-center text-4xl">
+          <span className="font-toss">📖</span> Book
+        </h1>
+      </Card>
+    </div>
   );
-}
+};
+
+export default Home;

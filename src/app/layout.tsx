@@ -10,6 +10,12 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
+const tossface = localFont({
+  src: '../fonts/TossFaceFontMac.ttf',
+  variable: '--font-tossface',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: 'dhoonjang blog',
   description: "dhoonjang's blog",
@@ -23,8 +29,11 @@ export default function RootLayout({
   session: Session | null;
 }) {
   return (
-    <html lang="ko" className={pretendard.className}>
-      <body>
+    <html
+      lang="ko"
+      className={`${pretendard.className} ${pretendard.variable} ${tossface.variable}`}
+    >
+      <body className="dark">
         <Providers session={session}>{children}</Providers>
       </body>
     </html>
