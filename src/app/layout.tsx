@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Session } from 'next-auth';
 import { ReactNode } from 'react';
 import Providers from './providers';
 import './globals.scss';
@@ -21,20 +20,14 @@ export const metadata: Metadata = {
   description: "dhoonjang's blog",
 };
 
-export default function RootLayout({
-  children,
-  session,
-}: {
-  children: ReactNode;
-  session: Session | null;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="ko"
       className={`${pretendard.className} ${pretendard.variable} ${tossface.variable}`}
     >
       <body className="dark">
-        <Providers session={session}>{children}</Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
