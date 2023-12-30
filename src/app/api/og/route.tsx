@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     (
       <div
         style={{
-          fontSize: Math.max(500 / title.length, 40),
+          fontSize: Math.max(500 / title.length, 50),
           color: 'white',
           background: 'rgb(17 24 39)',
           width: '100%',

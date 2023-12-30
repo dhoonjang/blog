@@ -21,16 +21,18 @@ const PostCard: FC<PostCardProps> = ({
 }) => (
   <Link href={`/blog/posts/${id}`}>
     <Card className={cn('py-4', className)}>
-      <CardHeader className="flex-col items-start px-4 py-2">
-        <small className="text-default-500">
-          {format(new Date(created_at), 'yyyy년 M월 d일')}
-        </small>
+      <CardHeader className="flex-col items-start gap-2 px-4 py-2">
         <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-bold">{title}</h2>
-          <Chip color="primary">{category}</Chip>
+          <small className="text-default-500">
+            {format(new Date(created_at), 'yyyy년 M월 d일')}
+          </small>
+          <Chip size="sm" color="primary">
+            {category}
+          </Chip>
         </div>
+        <h2 className="line-clamp-2 text-2xl font-bold">{title}</h2>
       </CardHeader>
-      <CardBody className="flex flex-col gap-3">
+      <CardBody className="flex flex-col gap-3 py-1">
         <div className="relative aspect-[2/1]">
           <Image
             src={

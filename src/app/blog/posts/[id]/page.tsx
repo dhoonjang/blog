@@ -27,6 +27,7 @@ export async function generateMetadata({ params: { id } }: PostPageProps) {
   const description = data[0].content.slice(0, 100);
 
   return {
+    metadataBase: new URL('https://blog.dhoonjang.io'),
     title,
     description,
     openGraph: {
