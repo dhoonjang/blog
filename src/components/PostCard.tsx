@@ -19,7 +19,7 @@ const PostCard: FC<PostCardProps> = ({
   className,
   category,
 }) => (
-  <Link href={`/blog/posts/${id}`}>
+  <Link href={`/posts/${id}`}>
     <Card className={cn('py-4', className)}>
       <CardHeader className="flex-col items-start gap-2 px-4 py-2">
         <div className="flex items-center gap-2">
