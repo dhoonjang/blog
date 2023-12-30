@@ -16,16 +16,15 @@ const tossface = localFont({
 });
 
 const RootLayout = ({ children }: { children: ReactNode }) => (
-  <html
-    lang="ko"
-    className={cn(
-      'text-sm dark lg:text-base',
-      pretendard.className,
-      tossface.variable,
-      pretendard.variable
-    )}
-  >
-    <body>
+  <html lang="ko" className="bg-background dark lg:text-base">
+    <body
+      className={cn(
+        'text-sm lg:text-base',
+        pretendard.className,
+        tossface.variable,
+        pretendard.variable
+      )}
+    >
       <Providers>{children}</Providers>
     </body>
   </html>

@@ -11,7 +11,10 @@ type PostPageProps = {
 
 export async function generateMetadata({ params: { id } }: PostPageProps) {
   const supabase = createClient(cookies());
-  const { data } = await supabase.from('Post').select('*').eq('id', Number(id));
+  const { data } = await supabase
+    .from('Post')
+    .select('title, content, preview_image_url')
+    .eq('id', Number(id));
 
   if (!data || !data[0])
     return {
@@ -21,6 +24,7 @@ export async function generateMetadata({ params: { id } }: PostPageProps) {
 
   const title = data[0].title;
   const description = data[0].content.split('. ')[0].concat('.');
+  const url = data[0].preview_image_url || `/api/og?title=${title}`;
 
   return {
     metadataBase: new URL('https://blog.dhoonjang.io'),
@@ -32,7 +36,7 @@ export async function generateMetadata({ params: { id } }: PostPageProps) {
       siteName: '동훈의 블로그',
       images: [
         {
-          url: `/api/og?title=${title}`,
+          url,
           width: 1200,
           height: 630,
         },
@@ -41,7 +45,7 @@ export async function generateMetadata({ params: { id } }: PostPageProps) {
     twitter: {
       title,
       description,
-      images: `/api/og?title=${title}`,
+      images: url,
     },
   };
 }

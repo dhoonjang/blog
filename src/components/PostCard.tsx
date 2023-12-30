@@ -1,10 +1,11 @@
 import { Post } from '@/types';
 import { cn } from '@/utils/style';
-import { Card, CardBody, CardHeader, Chip } from '@nextui-org/react';
+import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
+import CategoryChip from './CategoryChip';
 
 export type PostCardProps = Omit<Post, 'tags'> & {
   className?: string;
@@ -26,9 +27,7 @@ const PostCard: FC<PostCardProps> = ({
           <small className="text-default-500">
             {format(new Date(created_at), 'yyyy년 M월 d일')}
           </small>
-          <Chip size="sm" color="primary">
-            {category}
-          </Chip>
+          <CategoryChip category={category} size="sm" />
         </div>
         <h2 className="line-clamp-2 text-2xl font-bold">{title}</h2>
       </CardHeader>

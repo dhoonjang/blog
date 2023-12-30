@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC, memo } from 'react';
+import CategoryChip from './CategoryChip';
 import { MarkdownViewer } from './Markdown';
 
 type PostDetailProps = {
@@ -27,7 +28,7 @@ const PostDetail: FC<PostDetailProps> = ({
   <div className="container flex flex-col gap-8 pb-40 pt-20">
     <h1 className="text-4xl font-bold">{title}</h1>
     <div className="flex flex-row items-center gap-2">
-      <Chip color="primary">{category}</Chip>
+      <CategoryChip category={category} />
       {tags.map((tag) => (
         <Link href={`/tags/${tag}`} key={tag}>
           <Chip>{tag}</Chip>

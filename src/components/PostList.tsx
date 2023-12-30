@@ -49,7 +49,7 @@ const PostList: FC<PostListProps> = ({ category, tag, className }) => {
   return (
     <div
       className={cn(
-        'container flex flex-col items-center gap-8 pt-20 @container',
+        'container flex flex-col items-center gap-8 pt-10 @container',
         className
       )}
     >

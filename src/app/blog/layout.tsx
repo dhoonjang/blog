@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const BlogLayout = ({ children }: { children: ReactNode }) => (
-  <div className="flex min-h-screen w-screen flex-col bg-background text-foreground">
+  <div className="flex w-screen flex-col text-foreground">
     <Header />
     <main>{children}</main>
   </div>

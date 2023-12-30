@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { memo } from 'react';
 
 const Header = () => (
-  <Navbar shouldHideOnScroll>
+  <Navbar
+    shouldHideOnScroll
+    classNames={{
+      wrapper: 'px-4',
+    }}
+  >
     <Link href="/">
       <NavbarBrand>
         <p>동훈의 블로그</p>

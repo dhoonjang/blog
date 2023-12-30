@@ -14,13 +14,17 @@ const MDViewer = dynamic(() => import('@uiw/react-markdown-preview'), {
 });
 
 export const MarkdownEditor = ({ ...rest }: MDEditorProps) => (
-  <div>
-    <MDEditor {...rest} />
+  <div data-dark-mode="dark">
+    <MDEditor {...rest} className="!bg-background" />
   </div>
 );
 
 export const MarkdownViewer = ({ ...rest }: MarkdownPreviewProps) => (
-  <div>
-    <MDViewer {...rest} />
-  </div>
+  <MDViewer
+    {...rest}
+    wrapperElement={{
+      'data-color-mode': 'dark',
+    }}
+    className="!bg-background"
+  />
 );
