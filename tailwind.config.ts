@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
 import { nextui } from '@nextui-org/react';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -8,14 +8,25 @@ const config: Config = {
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    screens: {
+      lg: '1024px',
+    },
     extend: {
       fontFamily: {
         toss: ['var(--font-tossface)', 'var(--font-pretendard)', 'sans-serif'],
       },
+      colors: {
+        base: '#1a1b1b',
+        frame: '#262727',
+      },
+    },
+    container: {
+      center: true,
+      padding: '24px',
     },
   },
   darkMode: 'class',
-  plugins: [nextui()],
+  plugins: [nextui(), require('@tailwindcss/container-queries')],
 };
 
 export default config;

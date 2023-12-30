@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
+import Providers from '@/components/Providers';
+import { cn } from '@/utils/style';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
-import Providers from './providers';
-import './globals.scss';
+import './globals.css';
 
 const pretendard = localFont({
   src: '../fonts/PretendardStdVariable.woff2',
@@ -15,20 +15,20 @@ const tossface = localFont({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'dhoonjang blog',
-  description: "dhoonjang's blog",
-};
+const RootLayout = ({ children }: { children: ReactNode }) => (
+  <html
+    lang="ko"
+    className={cn(
+      'text-sm dark lg:text-base',
+      pretendard.className,
+      tossface.variable,
+      pretendard.variable
+    )}
+  >
+    <body>
+      <Providers>{children}</Providers>
+    </body>
+  </html>
+);
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  return (
-    <html
-      lang="ko"
-      className={`${pretendard.className} ${pretendard.variable} ${tossface.variable}`}
-    >
-      <body className="dark">
-        <Providers>{children}</Providers>
-      </body>
-    </html>
-  );
-}
+export default RootLayout;

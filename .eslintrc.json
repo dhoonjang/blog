@@ -1,37 +1,45 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
-    "plugin:tailwindcss/recommended",
     "prettier",
-    "plugin:prettier/recommended"
+    "plugin:tailwindcss/recommended"
   ],
-  "plugins": ["sort-exports", "import"],
   "rules": {
-    "prettier/prettier": [
+    "arrow-body-style": "warn",
+    "tailwindcss/no-arbitrary-value": "off",
+    "tailwindcss/classnames-order": [
       "warn",
       {
-        "singleQuote": true,
-        "trailingComma": "es5"
+        "callees": ["cva", "cn"],
+        "classRegex": "^(containerClassName|class|className)$"
       }
     ],
-    "import/order": [
+    "tailwindcss/enforces-negative-arbitrary-values": [
       "warn",
       {
-        "groups": [
-          "type",
-          "builtin",
-          "external",
-          "internal",
-          ["sibling", "parent", "index"],
-          "unknown"
-        ],
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
+        "callees": ["cva", "cn"],
+        "classRegex": "^(containerClassName|class|className)$"
+      }
+    ],
+    "tailwindcss/enforces-shorthand": [
+      "warn",
+      {
+        "callees": ["cva", "cn"],
+        "classRegex": "^(containerClassName|class|className)$"
+      }
+    ],
+    "tailwindcss/no-contradicting-classname": [
+      "warn",
+      {
+        "callees": ["cva", "cn"],
+        "classRegex": "^(containerClassName|class|className)$"
+      }
+    ],
+    "tailwindcss/no-custom-classname": [
+      "warn",
+      {
+        "callees": ["cva", "cn"],
+        "classRegex": "^(containerClassName|class|className)$"
       }
     ]
   }
