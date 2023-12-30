@@ -20,7 +20,7 @@ export async function generateMetadata({ params: { id } }: PostPageProps) {
     };
 
   const title = data[0].title;
-  const description = data[0].content.slice(0, 100);
+  const description = data[0].content.split('. ')[0].concat('.');
 
   return {
     metadataBase: new URL('https://blog.dhoonjang.io'),

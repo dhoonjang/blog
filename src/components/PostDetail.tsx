@@ -45,6 +45,7 @@ const PostDetail: FC<PostDetailProps> = ({
         sizes="100vw"
         alt={title}
         className="h-auto w-full"
+        priority
       />
     )}
     <MarkdownViewer source={content} className="min-w-full" />

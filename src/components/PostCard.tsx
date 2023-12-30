@@ -42,6 +42,7 @@ const PostCard: FC<PostCardProps> = ({
             sizes="360px"
             alt={title}
             className="rounded-xl object-cover"
+            priority
           />
         </div>
         <p className="line-clamp-3 text-medium text-gray-400">{content}</p>
