@@ -32,7 +32,6 @@ export const createClient = (request: NextRequest) => {
           request.cookies.set({
             name,
             value,
-            domain: 'dhoonjang.io',
             ...options,
           });
           response = NextResponse.next({
@@ -43,7 +42,6 @@ export const createClient = (request: NextRequest) => {
           response.cookies.set({
             name,
             value,
-            domain: 'dhoonjang.io',
             ...options,
           });
         },
@@ -52,7 +50,6 @@ export const createClient = (request: NextRequest) => {
           request.cookies.set({
             name,
             value: '',
-            domain: 'dhoonjang.io',
             ...options,
           });
           response = NextResponse.next({
@@ -63,7 +60,6 @@ export const createClient = (request: NextRequest) => {
           response.cookies.set({
             name,
             value: '',
-            domain: 'dhoonjang.io',
             ...options,
           });
         },

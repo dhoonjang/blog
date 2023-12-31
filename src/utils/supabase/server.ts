@@ -9,10 +9,8 @@ export const createClient = (cookies?: ReturnType<typeof nextCookies>) =>
     {
       cookies: {
         get: (name) => cookies?.get(name)?.value,
-        set: (name, value) => {
-          cookies?.set(name, value, {
-            domain: 'dhoonjang.io',
-          });
+        set: (name, value, options) => {
+          cookies?.set(name, value, options);
         },
       },
     }
