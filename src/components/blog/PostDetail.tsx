@@ -24,7 +24,7 @@ const PostDetail: FC<PropsWithChildren<PostDetailProps>> = ({
   created_at,
   status,
 }) => (
-  <div className="container flex flex-col gap-8 pb-24 pt-16">
+  <div className="container flex flex-col gap-8 pb-20 pt-14">
     <div className="flex items-center justify-between">
       <h1 className="text-4xl font-bold">
         {status === 'DRAFT' && '[DRAFT] '}

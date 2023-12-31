@@ -1,7 +1,7 @@
 import PostList from '@/components/PostList';
 
 const Blog = () => (
-  <div className="container py-20">
+  <div className="container pb-20 pt-10">
     <PostList />
   </div>
 );
