@@ -15,7 +15,11 @@ const EditButton = async ({ id }: EditButtonProps) => {
 
   if (user?.role !== 'authenticated') return null;
   return (
-    <Link href={`https://admin.dhoonjang.io/posts/${id}`} target="_blank">
+    <Link
+      href={`https://admin.dhoonjang.io/posts/${id}`}
+      target="_blank"
+      className=""
+    >
       <Button type="button" size="sm">
         편집
       </Button>

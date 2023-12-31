@@ -1,5 +1,9 @@
-import PostList from '@/components/blog/PostList';
+import PostList from '@/components/PostList';
 
-const Blog = () => <PostList />;
+const Blog = () => (
+  <div className="container py-20">
+    <PostList />
+  </div>
+);
 
 export default Blog;

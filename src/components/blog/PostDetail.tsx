@@ -1,20 +1,17 @@
 'use client';
 
 import { Link } from '@/navigation';
+import { Post } from '@/types';
 import { Chip } from '@nextui-org/react';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { FC, PropsWithChildren, memo } from 'react';
+import CategoryChip from '../CategoryChip';
 import { MarkdownViewer } from '../Markdown';
-import CategoryChip from './CategoryChip';
 
-type PostDetailProps = {
-  title: string;
-  content: string;
-  category: string;
+type PostDetailProps = Omit<Post, 'id' | 'preview_image_url' | 'tags'> & {
   tags: string[];
   imageUrl: string | null;
-  created_at: string;
 };
 
 const PostDetail: FC<PropsWithChildren<PostDetailProps>> = ({
@@ -25,10 +22,14 @@ const PostDetail: FC<PropsWithChildren<PostDetailProps>> = ({
   tags,
   imageUrl,
   created_at,
+  status,
 }) => (
   <div className="container flex flex-col gap-8 pb-24 pt-16">
     <div className="flex items-center justify-between">
-      <h1 className="text-4xl font-bold">{title}</h1>
+      <h1 className="text-4xl font-bold">
+        {status === 'DRAFT' && '[DRAFT] '}
+        {title}
+      </h1>
       {children}
     </div>
     <div className="flex flex-row items-center gap-2">

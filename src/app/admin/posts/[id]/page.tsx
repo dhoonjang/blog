@@ -46,7 +46,12 @@ const PostPage = ({ params: { id } }: PostPageProps) => {
   const { mutate: deletePost, isPending: isDeleteLoading } = useMutation({
     mutationKey: ['posts', id, 'patch'],
     mutationFn: async () => {
-      await supabase.from('Post').delete().eq('id', Number(id));
+      const { error } = await supabase
+        .from('Post')
+        .delete()
+        .eq('id', Number(id));
+      console.log(error);
+      return error;
     },
     onSuccess: () => {
       router.push('/');
@@ -56,7 +61,7 @@ const PostPage = ({ params: { id } }: PostPageProps) => {
   if (!data) return null;
   const { title, category, content, status, preview_image_url } = data;
   return (
-    <div className="container flex flex-col pb-20 pt-12">
+    <div className="container flex flex-col py-10">
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-2xl font-medium">글 수정</h1>
         <div className="flex gap-2">

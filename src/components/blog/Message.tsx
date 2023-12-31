@@ -1,7 +1,7 @@
 import { cn } from '@/utils/style';
 import { FC } from 'react';
 import { BsFillPersonFill, BsRobot } from 'react-icons/bs';
-import PostCard, { PostCardProps } from './PostCard';
+import PostCard, { PostCardProps } from '../PostCard';
 
 export type MessageProps = {
   content: string;

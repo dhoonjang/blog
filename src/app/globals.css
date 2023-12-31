@@ -9,3 +9,7 @@ ul {
 ol {
   list-style-type: decimal;
 }
+
+button {
+  cursor: pointer;
+}

@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import CategoryChip from './CategoryChip';
 
-export type PostCardProps = Omit<Post, 'tags'> & {
+export type PostCardProps = Omit<Post, 'tags' | 'status'> & {
   className?: string;
 };
 

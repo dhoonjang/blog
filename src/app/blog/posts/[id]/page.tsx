@@ -65,8 +65,15 @@ const PostPage = async ({ params: { id } }: PostPageProps) => {
 
   if (!data || !data[0]) return notFound();
 
-  const { title, category, tags, content, created_at, preview_image_url } =
-    data[0];
+  const {
+    title,
+    category,
+    tags,
+    content,
+    created_at,
+    preview_image_url,
+    status,
+  } = data[0];
 
   const children = (
     <PostDetail
@@ -76,6 +83,7 @@ const PostPage = async ({ params: { id } }: PostPageProps) => {
       content={content}
       created_at={created_at}
       imageUrl={preview_image_url}
+      status={status}
     >
       <Suspense>
         <EditButton id={id} />

@@ -1,8 +1,12 @@
 import { Link } from '@/navigation';
 import { Navbar, NavbarBrand } from '@nextui-org/react';
-import { memo } from 'react';
+import { FC, memo } from 'react';
 
-const Header = () => (
+type HeaderProps = {
+  title: string;
+};
+
+const Header: FC<HeaderProps> = ({ title }) => (
   <Navbar
     shouldHideOnScroll
     classNames={{
@@ -11,7 +15,7 @@ const Header = () => (
   >
     <Link href="/">
       <NavbarBrand>
-        <p>동훈의 블로그</p>
+        <p>{title}</p>
       </NavbarBrand>
     </Link>
   </Navbar>

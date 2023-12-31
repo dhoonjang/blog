@@ -6,7 +6,7 @@ import axios from 'axios';
 import type { ChatCompletionMessageParam } from 'openai/resources/index';
 import { FormEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { PostCardProps } from './blog/PostCard';
+import { PostCardProps } from './PostCard';
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
