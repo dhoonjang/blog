@@ -1,9 +1,9 @@
+import { Link } from '@/navigation';
 import { Post } from '@/types';
 import { cn } from '@/utils/style';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { format } from 'date-fns';
 import Image from 'next/image';
-import Link from 'next/link';
 import { FC } from 'react';
 import CategoryChip from './CategoryChip';
 

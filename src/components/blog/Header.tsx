@@ -1,5 +1,5 @@
+import { Link } from '@/navigation';
 import { Navbar, NavbarBrand } from '@nextui-org/react';
-import Link from 'next/link';
 import { memo } from 'react';
 
 const Header = () => (

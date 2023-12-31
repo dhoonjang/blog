@@ -1,12 +1,12 @@
 import IconButton from '@/components/IconButton';
-import Message, { MessageProps } from '@/components/Message';
+import Message, { MessageProps } from '@/components/blog/Message';
+import { Button } from '@nextui-org/react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import type { ChatCompletionMessageParam } from 'openai/resources/index';
 import { FormEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import Button from './Button';
-import { PostCardProps } from './PostCard';
+import { PostCardProps } from './blog/PostCard';
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);

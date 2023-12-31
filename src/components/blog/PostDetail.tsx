@@ -1,12 +1,12 @@
 'use client';
 
+import { Link } from '@/navigation';
 import { Chip } from '@nextui-org/react';
 import { format } from 'date-fns';
 import Image from 'next/image';
-import Link from 'next/link';
-import { FC, memo } from 'react';
+import { FC, PropsWithChildren, memo } from 'react';
+import { MarkdownViewer } from '../Markdown';
 import CategoryChip from './CategoryChip';
-import { MarkdownViewer } from './Markdown';
 
 type PostDetailProps = {
   title: string;
@@ -17,7 +17,8 @@ type PostDetailProps = {
   created_at: string;
 };
 
-const PostDetail: FC<PostDetailProps> = ({
+const PostDetail: FC<PropsWithChildren<PostDetailProps>> = ({
+  children,
   title,
   category,
   content,
@@ -25,8 +26,11 @@ const PostDetail: FC<PostDetailProps> = ({
   imageUrl,
   created_at,
 }) => (
-  <div className="container flex flex-col gap-8 pb-40 pt-20">
-    <h1 className="text-4xl font-bold">{title}</h1>
+  <div className="container flex flex-col gap-8 pb-24 pt-16">
+    <div className="flex items-center justify-between">
+      <h1 className="text-4xl font-bold">{title}</h1>
+      {children}
+    </div>
     <div className="flex flex-row items-center gap-2">
       <CategoryChip category={category} />
       {tags.map((tag) => (
@@ -45,7 +49,7 @@ const PostDetail: FC<PostDetailProps> = ({
         height={0}
         sizes="100vw"
         alt={title}
-        className="h-auto w-full"
+        className="h-auto w-full max-w-[600px]"
         priority
       />
     )}

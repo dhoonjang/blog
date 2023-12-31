@@ -29,6 +29,7 @@ const PostList: FC<PostListProps> = ({ category, tag, className }) => {
       if (tag) request = request.like('tags', `%${tag}%`);
 
       const { data } = await request
+        .eq('status', 'PUBLISHED')
         .order('created_at', { ascending: false })
         .range(pageParam, pageParam + 9);
 
@@ -49,14 +50,14 @@ const PostList: FC<PostListProps> = ({ category, tag, className }) => {
   return (
     <div
       className={cn(
-        'container flex flex-col items-center gap-8 pt-10 @container',
+        'container flex flex-col items-center gap-8 pt-14 @container',
         className
       )}
     >
       <h1 className={cn('text-2xl font-medium', !category && !tag && 'hidden')}>
         {category ? category : `#${tag}`}
       </h1>
-      <div className="grid grid-cols-1 gap-x-4 gap-y-6 pb-24 @xl:grid-cols-2 @4xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-x-4 gap-y-6 pb-16 @xl:grid-cols-2 @4xl:grid-cols-3">
         {postPages?.pages
           .flatMap((page) => page.posts)
           .map((post) => (

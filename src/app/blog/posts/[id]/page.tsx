@@ -1,7 +1,9 @@
-import PostDetail from '@/components/PostDetail';
+import CheckAuth from '@/components/CheckAuth';
+import EditButton from '@/components/blog/EditButton';
+import PostDetail from '@/components/blog/PostDetail';
 import { createClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 type PostPageProps = {
   params: {
@@ -10,7 +12,7 @@ type PostPageProps = {
 };
 
 export async function generateMetadata({ params: { id } }: PostPageProps) {
-  const supabase = createClient(cookies());
+  const supabase = createClient();
   const { data } = await supabase
     .from('Post')
     .select('title, content, preview_image_url')
@@ -58,7 +60,7 @@ export async function generateStaticParams() {
 }
 
 const PostPage = async ({ params: { id } }: PostPageProps) => {
-  const supabase = createClient(cookies());
+  const supabase = createClient();
   const { data } = await supabase.from('Post').select('*').eq('id', Number(id));
 
   if (!data || !data[0]) return notFound();
@@ -66,7 +68,7 @@ const PostPage = async ({ params: { id } }: PostPageProps) => {
   const { title, category, tags, content, created_at, preview_image_url } =
     data[0];
 
-  return (
+  const children = (
     <PostDetail
       title={title}
       category={category}
@@ -74,7 +76,18 @@ const PostPage = async ({ params: { id } }: PostPageProps) => {
       content={content}
       created_at={created_at}
       imageUrl={preview_image_url}
-    />
+    >
+      <Suspense>
+        <EditButton id={id} />
+      </Suspense>
+    </PostDetail>
+  );
+
+  if (data[0].status === 'PUBLISHED') return children;
+  return (
+    <Suspense>
+      <CheckAuth>{children}</CheckAuth>
+    </Suspense>
   );
 };
 

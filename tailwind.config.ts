@@ -13,11 +13,13 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
+        base: ['var(--font-pretendard)', 'sans-serif'],
         toss: ['var(--font-tossface)', 'var(--font-pretendard)', 'sans-serif'],
       },
       colors: {
-        base: '#1a1b1b',
-        frame: '#262727',
+        markdown: {
+          textColor: '#c9d1d9',
+        },
       },
     },
     container: {

@@ -1,8 +1,8 @@
 'use client';
 
+import { useRouter } from '@/navigation';
 import { NextUIProvider } from '@nextui-org/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { FC, PropsWithChildren, useState } from 'react';
 
 const Providers: FC<PropsWithChildren> = ({ children }) => {

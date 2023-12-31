@@ -1,20 +1,7 @@
 import { Database } from '@/types/supabase';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
-
-const getValidSubdomain = (host?: string | null) => {
-  let subdomain: string | null = null;
-  if (!host && typeof window !== 'undefined') {
-    host = window.location.host;
-  }
-  if (host && host.includes('.')) {
-    const candidate = host.split('.')[0];
-    if (candidate && !candidate.includes('localhost') && candidate !== 'www') {
-      subdomain = candidate;
-    }
-  }
-  return subdomain;
-};
+import { getValidSubdomain } from '../url';
 
 export const createClient = (request: NextRequest) => {
   const url = request.nextUrl.clone();
