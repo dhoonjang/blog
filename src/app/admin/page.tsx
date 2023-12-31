@@ -10,7 +10,7 @@ const Admin = () => (
     <CheckAuth fallback={<LoginForm />}>
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">블로그 글 목록</h2>
-        <Link href="/write">
+        <Link href="/posts/new">
           <Button fullWidth color="primary" type="button" size="sm">
             새로운 글 작성
           </Button>

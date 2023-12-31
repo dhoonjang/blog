@@ -5,7 +5,7 @@ import { Post } from '@/types';
 import { Chip } from '@nextui-org/react';
 import { format } from 'date-fns';
 import Image from 'next/image';
-import { FC, PropsWithChildren, memo } from 'react';
+import { FC, memo } from 'react';
 import CategoryChip from '../CategoryChip';
 import { MarkdownViewer } from '../Markdown';
 
@@ -14,8 +14,7 @@ type PostDetailProps = Omit<Post, 'id' | 'preview_image_url' | 'tags'> & {
   imageUrl: string | null;
 };
 
-const PostDetail: FC<PropsWithChildren<PostDetailProps>> = ({
-  children,
+const PostDetail: FC<PostDetailProps> = ({
   title,
   category,
   content,
@@ -25,13 +24,10 @@ const PostDetail: FC<PropsWithChildren<PostDetailProps>> = ({
   status,
 }) => (
   <div className="container flex flex-col gap-8 pb-20 pt-14">
-    <div className="flex items-center justify-between">
-      <h1 className="text-4xl font-bold">
-        {status === 'DRAFT' && '[DRAFT] '}
-        {title}
-      </h1>
-      {children}
-    </div>
+    <h1 className="text-4xl font-bold">
+      {status !== 'PUBLISHED' && `[${status}] `}
+      {title}
+    </h1>
     <div className="flex flex-row items-center gap-2">
       <CategoryChip category={category} />
       {tags.map((tag) => (

@@ -1,9 +1,6 @@
-import CheckAuth from '@/components/CheckAuth';
-import EditButton from '@/components/blog/EditButton';
 import PostDetail from '@/components/blog/PostDetail';
 import { createClient } from '@/utils/supabase/server';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
 type PostPageProps = {
   params: {
@@ -63,7 +60,7 @@ const PostPage = async ({ params: { id } }: PostPageProps) => {
   const supabase = createClient();
   const { data } = await supabase.from('Post').select('*').eq('id', Number(id));
 
-  if (!data || !data[0]) return notFound();
+  if (!data || !data[0] || data[0].status !== 'PUBLISHED') return notFound();
 
   const {
     title,
@@ -75,7 +72,7 @@ const PostPage = async ({ params: { id } }: PostPageProps) => {
     status,
   } = data[0];
 
-  const children = (
+  return (
     <PostDetail
       title={title}
       category={category}
@@ -84,18 +81,7 @@ const PostPage = async ({ params: { id } }: PostPageProps) => {
       created_at={created_at}
       imageUrl={preview_image_url}
       status={status}
-    >
-      <Suspense>
-        <EditButton id={id} />
-      </Suspense>
-    </PostDetail>
-  );
-
-  if (data[0].status === 'PUBLISHED') return children;
-  return (
-    <Suspense>
-      <CheckAuth>{children}</CheckAuth>
-    </Suspense>
+    />
   );
 };
 
