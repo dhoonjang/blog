@@ -15,7 +15,6 @@ export const PUT = async (request: Request) => {
     {}
   );
 
-  console.log(formData);
   const { preview_image, ...putRequest } = formData;
 
   let preview_image_url: string | undefined = undefined;

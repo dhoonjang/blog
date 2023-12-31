@@ -16,8 +16,6 @@ export const POST = async (request: Request) => {
     {}
   );
 
-  console.log(formData);
-
   const { preview_image, ...postRequest } = formData;
 
   let preview_image_url: string | null = null;
@@ -32,8 +30,6 @@ export const POST = async (request: Request) => {
       });
 
     if (error) {
-      console.log(error);
-
       return NextResponse.json({ error }, { status: 403 });
     } else if (uploadData.path) {
       const { data } = await supabase.storage
