@@ -10,6 +10,7 @@ import {
 } from '@nextui-org/react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { FC, FormEvent, useRef, useState } from 'react';
 
@@ -49,8 +50,10 @@ const PostForm: FC<PostFormProps> = ({
       }
     },
     onSuccess: (data) => {
-      if (id) router.refresh();
-      else router.push(`/posts/${data.id}`);
+      if (id) {
+        revalidatePath(`/blog/posts/${id}`);
+        router.refresh();
+      } else router.push(`/posts/${data.id}`);
     },
   });
 

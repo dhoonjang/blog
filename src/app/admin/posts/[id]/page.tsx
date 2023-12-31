@@ -6,6 +6,7 @@ import { Post } from '@/types';
 import { createClient } from '@/utils/supabase/client';
 import { Button } from '@nextui-org/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -39,6 +40,7 @@ const PostPage = ({ params: { id } }: PostPageProps) => {
       await supabase.from('Post').update({ status }).eq('id', Number(id));
     },
     onSuccess: () => {
+      revalidatePath(`/blog/posts/${id}`);
       refetch();
     },
   });
@@ -46,14 +48,10 @@ const PostPage = ({ params: { id } }: PostPageProps) => {
   const { mutate: deletePost, isPending: isDeleteLoading } = useMutation({
     mutationKey: ['posts', id, 'patch'],
     mutationFn: async () => {
-      const { error } = await supabase
-        .from('Post')
-        .delete()
-        .eq('id', Number(id));
-      console.log(error);
-      return error;
+      await supabase.from('Post').delete().eq('id', Number(id));
     },
     onSuccess: () => {
+      revalidatePath(`/blog/posts/${id}`);
       router.push('/');
     },
   });
