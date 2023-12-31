@@ -5,6 +5,23 @@ import { ReactNode } from 'react';
 export const metadata: Metadata = {
   title: '동훈의 블로그',
   description: '잘 살아가기 위해 정리하는 생각들',
+  openGraph: {
+    title: '동훈의 블로그',
+    description: '잘 살아가기 위해 정리하는 생각들',
+    siteName: '동훈의 블로그',
+    images: [
+      {
+        url: `/api/og?title=${'잘 살아가기 위해 정리하는 생각들'}`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    title: '동훈의 블로그',
+    description: '잘 살아가기 위해 정리하는 생각들',
+    images: `/api/og?title=${'잘 살아가기 위해 정리하는 생각들'}`,
+  },
 };
 
 const BlogLayout = ({ children }: { children: ReactNode }) => (

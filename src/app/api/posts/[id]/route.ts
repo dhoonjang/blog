@@ -56,3 +56,14 @@ export const PUT = async (request: Request) => {
     return NextResponse.json({ error: '글 수정 실패' }, { status: 500 });
   }
 };
+
+export const GET = async (request: Request) => {
+  const id = new URL(request.url).pathname.split('/').at(-1);
+
+  const supabase = await createClient(cookies());
+  const { data } = await supabase.from('Post').select('*').eq('id', Number(id));
+
+  if (!data || !data[0])
+    return NextResponse.json({ success: false }, { status: 404 });
+  return NextResponse.json({ success: true, ...data[0] });
+};
