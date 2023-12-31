@@ -52,6 +52,8 @@ const PostForm: FC<PostFormProps> = ({
     onSuccess: (data) => {
       if (id) {
         revalidatePath(`/blog/posts/${id}`);
+        revalidatePath(`/admin/posts/${id}`);
+        revalidatePath(`/posts/${id}`);
         router.refresh();
       } else router.push(`/posts/${data.id}`);
     },

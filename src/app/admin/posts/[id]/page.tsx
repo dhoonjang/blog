@@ -41,6 +41,8 @@ const PostPage = ({ params: { id } }: PostPageProps) => {
     },
     onSuccess: () => {
       revalidatePath(`/blog/posts/${id}`);
+      revalidatePath(`/admin/posts/${id}`);
+      revalidatePath(`/posts/${id}`);
       refetch();
     },
   });
@@ -52,6 +54,8 @@ const PostPage = ({ params: { id } }: PostPageProps) => {
     },
     onSuccess: () => {
       revalidatePath(`/blog/posts/${id}`);
+      revalidatePath(`/admin/posts/${id}`);
+      revalidatePath(`/posts/${id}`);
       router.push('/');
     },
   });
