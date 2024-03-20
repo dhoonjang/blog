@@ -1,16 +1,13 @@
 'use client';
 
-import { Link } from '@/navigation';
 import { Post } from '@/types';
-import { Chip } from '@nextui-org/react';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { FC, memo } from 'react';
-import CategoryChip from '../CategoryChip';
-import { MarkdownViewer } from '../Markdown';
+import CategoryChip from './CategoryChip';
+import { MarkdownViewer } from './Markdown';
 
 type PostDetailProps = Omit<Post, 'id' | 'preview_image_url' | 'tags'> & {
-  tags: string[];
   imageUrl: string | null;
 };
 
@@ -18,7 +15,6 @@ const PostDetail: FC<PostDetailProps> = ({
   title,
   category,
   content,
-  tags,
   imageUrl,
   created_at,
   status,
@@ -30,11 +26,6 @@ const PostDetail: FC<PostDetailProps> = ({
     </h1>
     <div className="flex flex-row items-center gap-2">
       <CategoryChip category={category} />
-      {tags.map((tag) => (
-        <Link href={`/tags/${tag}`} key={tag}>
-          <Chip>{tag}</Chip>
-        </Link>
-      ))}
       <div className="text-sm text-gray-500">
         {format(new Date(created_at), 'yyyy년 M월 d일 HH:mm')}
       </div>

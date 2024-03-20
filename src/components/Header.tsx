@@ -1,5 +1,5 @@
-import { Link } from '@/navigation';
 import { Navbar, NavbarBrand } from '@nextui-org/react';
+import Link from 'next/link';
 import { FC, memo } from 'react';
 
 type HeaderProps = {
@@ -15,7 +15,7 @@ const Header: FC<HeaderProps> = ({ title }) => (
   >
     <Link href="/">
       <NavbarBrand>
-        <p>{title}</p>
+        <p className="font-medium">{title}</p>
       </NavbarBrand>
     </Link>
   </Navbar>

@@ -1,4 +1,4 @@
-import PostDetail from '@/components/blog/PostDetail';
+import PostDetail from '@/components/PostDetail';
 import { createClient } from '@/utils/supabase/server';
 import { notFound } from 'next/navigation';
 
@@ -59,24 +59,15 @@ export async function generateStaticParams() {
 const PostPage = async ({ params: { id } }: PostPageProps) => {
   const supabase = createClient();
   const { data } = await supabase.from('Post').select('*').eq('id', Number(id));
-
   if (!data || !data[0] || data[0].status !== 'PUBLISHED') return notFound();
 
-  const {
-    title,
-    category,
-    tags,
-    content,
-    created_at,
-    preview_image_url,
-    status,
-  } = data[0];
+  const { title, category, content, created_at, preview_image_url, status } =
+    data[0];
 
   return (
     <PostDetail
       title={title}
       category={category}
-      tags={JSON.parse(tags) as string[]}
       content={content}
       created_at={created_at}
       imageUrl={preview_image_url}
