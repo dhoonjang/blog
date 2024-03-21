@@ -1,4 +1,5 @@
-import PostList from '@/components/PostList';
+import PostCard from '@/components/PostCard';
+import { getMdxMetdata } from '@/utils/parse';
 import fs from 'fs';
 import path from 'path';
 
@@ -26,9 +27,18 @@ const Blog = async () => {
     source: string;
   }[];
 
+  const postList = sourceList.map(({ id, source }) => ({
+    id,
+    ...getMdxMetdata(source),
+  }));
+
   return (
-    <div className="pb-20 pt-10">
-      <PostList postListSource={sourceList} />
+    <div className="pb-20 pt-10 @container">
+      <div className="grid grid-cols-1 gap-x-4 gap-y-6 @xl:grid-cols-2 @4xl:grid-cols-3">
+        {postList.map(({ ...post }) => (
+          <PostCard key={post.id} {...post} />
+        ))}
+      </div>
     </div>
   );
 };

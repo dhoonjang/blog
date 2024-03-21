@@ -1,4 +1,4 @@
-import { MdxMetadata } from '@/utils/parsing';
+import { MdxMetadata } from '@/utils/parse';
 import { cn } from '@/utils/style';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { format } from 'date-fns';
