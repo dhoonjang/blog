@@ -10,11 +10,17 @@ export async function GET(request: Request) {
     ' '
   );
 
+  let fontSize = 800 / title.length;
+
+  if (title.length < 9) fontSize = 90;
+  if (title.length > 16) fontSize = 50;
+
   return new ImageResponse(
     (
       <div
         style={{
-          fontSize: Math.max(500 / title.length, 50),
+          fontFamily: 'monospace',
+          fontSize,
           color: 'white',
           background: 'rgb(17 24 39)',
           width: '100%',
