@@ -1,4 +1,4 @@
-import { Post } from '@/types';
+import { MdxMetadata } from '@/utils/parsing';
 import { cn } from '@/utils/style';
 import { Card, CardBody, CardHeader } from '@nextui-org/react';
 import { format } from 'date-fns';
@@ -7,16 +7,17 @@ import Link from 'next/link';
 import { FC } from 'react';
 import CategoryChip from './CategoryChip';
 
-export type PostCardProps = Omit<Post, 'tags' | 'status'> & {
+export type PostCardProps = MdxMetadata & {
+  id: string;
   className?: string;
 };
 
 const PostCard: FC<PostCardProps> = ({
   id,
   title,
-  created_at,
-  content,
-  preview_image_url,
+  date,
+  description,
+  previewImage,
   className,
   category,
 }) => (
@@ -25,7 +26,7 @@ const PostCard: FC<PostCardProps> = ({
       <CardHeader className="flex-col items-start gap-2 px-4 py-2">
         <div className="flex items-center gap-2">
           <small className="text-default-500">
-            {format(new Date(created_at), 'yyyy년 M월 d일')}
+            {format(new Date(date), 'yyyy년 M월 d일')}
           </small>
           <CategoryChip category={category} size="sm" />
         </div>
@@ -34,9 +35,7 @@ const PostCard: FC<PostCardProps> = ({
       <CardBody className="flex flex-col gap-3 py-1">
         <div className="relative aspect-[2/1]">
           <Image
-            src={
-              preview_image_url ?? `/api/og?title=${encodeURIComponent(title)}`
-            }
+            src={previewImage ?? `/api/og?title=${encodeURIComponent(title)}`}
             fill
             sizes="360px"
             alt={title}
@@ -44,7 +43,7 @@ const PostCard: FC<PostCardProps> = ({
             priority
           />
         </div>
-        <p className="line-clamp-3 text-medium text-gray-400">{content}</p>
+        <p className="line-clamp-3 text-medium text-gray-400">{description}</p>
       </CardBody>
     </Card>
   </Link>

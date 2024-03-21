@@ -42,10 +42,10 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: { children: ReactNode }) => (
-  <html lang="ko" className="bg-background dark lg:text-base">
+  <html lang="ko" className="bg-background dark">
     <body
       className={cn(
-        'flex w-screen flex-col text-sm text-foreground lg:text-base',
+        'flex w-screen flex-col text-base',
         pretendard.className,
         tossface.variable,
         pretendard.variable
@@ -53,7 +53,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
     >
       <Providers>
         <Header title="동훈의 블로그" />
-        <main>{children}</main>
+        <main className="container">{children}</main>
       </Providers>
     </body>
   </html>

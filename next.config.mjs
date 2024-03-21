@@ -1,6 +1,9 @@
-/** @type {import('next').NextConfig} */
+import createMDX from '@next/mdx';
+import remarkGfm from 'remark-gfm';
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
       {
@@ -8,18 +11,6 @@ const nextConfig = {
         hostname: 'zbhccjfrgimdiqnbivan.supabase.co',
         port: '',
         pathname: '/storage/v1/object/public/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'nextjs.org',
-        port: '',
-        pathname: '/api/docs-og/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'tech.scatterlab.co.kr',
-        port: '',
-        pathname: '/images/**',
       },
     ],
   },
@@ -33,4 +24,12 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [],
+  },
+});
+
+export default withMDX(nextConfig);

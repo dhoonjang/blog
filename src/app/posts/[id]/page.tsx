@@ -1,29 +1,24 @@
-import PostDetail from '@/components/PostDetail';
-import { createClient } from '@/utils/supabase/server';
-import { notFound } from 'next/navigation';
+import CategoryChip from '@/components/CategoryChip';
+import { getMdxMetdata } from '@/utils/parsing';
+import fs from 'fs';
+import { Metadata } from 'next';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import path from 'path';
 
-type PostPageProps = {
-  params: {
-    id: string;
-  };
-};
-
-export async function generateMetadata({ params: { id } }: PostPageProps) {
-  const supabase = createClient();
-  const { data } = await supabase
-    .from('Post')
-    .select('title, content, preview_image_url')
-    .eq('id', Number(id));
-
-  if (!data || !data[0])
-    return {
-      title: '동훈의 블로그',
-      description: '장동훈이 잘 살아가기 위해 정리하는 생각들',
-    };
-
-  const title = data[0].title;
-  const description = data[0].content.split('. ')[0].concat('.');
-  const url = data[0].preview_image_url || `/api/og?title=${title}`;
+export const generateMetadata = ({
+  params,
+}: {
+  params: { id: string };
+}): Metadata => {
+  const filePath = path.join(
+    process.cwd(),
+    'public',
+    'posts',
+    `${params.id}.mdx`
+  );
+  const source = fs.readFileSync(filePath, 'utf8');
+  const metadataRecord = getMdxMetdata(source);
+  const { title, description, previewImage } = metadataRecord;
 
   return {
     metadataBase: new URL('https://blog.dhoonjang.io'),
@@ -32,10 +27,9 @@ export async function generateMetadata({ params: { id } }: PostPageProps) {
     openGraph: {
       title,
       description,
-      siteName: '동훈의 블로그',
       images: [
         {
-          url,
+          url: previewImage ?? `/api/og?title=${title}`,
           width: 1200,
           height: 630,
         },
@@ -44,36 +38,43 @@ export async function generateMetadata({ params: { id } }: PostPageProps) {
     twitter: {
       title,
       description,
-      images: url,
+      images: previewImage ?? `/api/og?title=${title}`,
     },
   };
-}
+};
 
-export async function generateStaticParams() {
-  const supabase = createClient();
-  const { data } = await supabase.from('Post').select('id');
-  if (!data) return [];
-  return data.map(({ id }) => ({ id: String(id) }));
-}
-
-const PostPage = async ({ params: { id } }: PostPageProps) => {
-  const supabase = createClient();
-  const { data } = await supabase.from('Post').select('*').eq('id', Number(id));
-  if (!data || !data[0] || data[0].status !== 'PUBLISHED') return notFound();
-
-  const { title, category, content, created_at, preview_image_url, status } =
-    data[0];
+const Posts = async ({ params }: { params: { id: string } }) => {
+  const filePath = path.join(
+    process.cwd(),
+    'public',
+    'posts',
+    `${params.id}.mdx`
+  );
+  const source = fs.readFileSync(filePath, 'utf8');
+  const metadataRecord = getMdxMetdata(source);
 
   return (
-    <PostDetail
-      title={title}
-      category={category}
-      content={content}
-      created_at={created_at}
-      imageUrl={preview_image_url}
-      status={status}
+    <MDXRemote
+      source={source}
+      components={{
+        h1: ({ children }) => (
+          <h1 className="flex items-center gap-3 py-2 text-2xl">
+            {children}
+            <CategoryChip category={metadataRecord.category ?? ''} size="md" />
+          </h1>
+        ),
+        hr: () => <hr className="mb-4 border-gray-600" />,
+        p: ({ children }) => <p className="py-[2px]">{children}</p>,
+        ul: ({ children }) => <ul className="mb-1 pl-4">{children}</ul>,
+        ol: ({ children }) => <ol className="mb-1 pl-4">{children}</ol>,
+        blockquote: ({ children }) => (
+          <blockquote className="my-[2px] rounded-sm bg-gray-900 px-2">
+            {children}
+          </blockquote>
+        ),
+      }}
     />
   );
 };
 
-export default PostPage;
+export default Posts;
