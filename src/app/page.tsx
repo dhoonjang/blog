@@ -1,8 +1,10 @@
 import PostCard from '@/components/PostCard';
-import { getMdxMetdata } from '@/utils/parse';
+import { MdxMetadata } from '@/utils/parse';
 import fs from 'fs';
+import { CompileMDXResult, compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 
+type PostMetadata = CompileMDXResult<MdxMetadata> & { id: string };
 const Blog = async () => {
   const folderPath = path.join(process.cwd(), 'public', 'posts');
 
@@ -10,33 +12,29 @@ const Blog = async () => {
 
   const fileNames = postFolder.filter((n) => n.includes('.mdx'));
 
-  const sourceList = (await Promise.all(
+  const postList = (await Promise.all(
     fileNames.map(
       (fileName) =>
         new Promise((resolve) => {
           const filePath = path.join(folderPath, fileName);
           const source = fs.readFileSync(filePath, 'utf8');
-          resolve({
-            id: fileName.split('.mdx')[0],
+          compileMDX<MdxMetadata>({
             source,
-          });
+            options: {
+              parseFrontmatter: true,
+            },
+          }).then((post) =>
+            resolve({ ...post, id: fileName.split('.mdx')[0] })
+          );
         })
     )
-  )) as {
-    id: string;
-    source: string;
-  }[];
-
-  const postList = sourceList.map(({ id, source }) => ({
-    id,
-    ...getMdxMetdata(source),
-  }));
+  )) as PostMetadata[];
 
   return (
     <div className="pb-20 pt-10 @container">
       <div className="grid grid-cols-1 gap-x-4 gap-y-6 @xl:grid-cols-2 @4xl:grid-cols-3">
-        {postList.map(({ ...post }) => (
-          <PostCard key={post.id} {...post} />
+        {postList.map(({ id, frontmatter }) => (
+          <PostCard key={id} id={id} {...frontmatter} />
         ))}
       </div>
     </div>
